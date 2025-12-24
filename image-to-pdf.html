@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Image to PDF – UtsavAi-Studio</title>
+<meta name="description" content="Free Image to PDF Converter by UtsavAi-Studio. Convert images to PDF online instantly.">
+<meta name="robots" content="index, follow">
+
+<!-- jsPDF CDN -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+<style>
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:Segoe UI, sans-serif;
+}
+
+:root{
+  --blue:#1e88e5;
+  --blue-dark:#1565c0;
+  --light:#f5f9ff;
+  --dark:#0d1b2a;
+}
+
+body{background:#fff;color:#333}
+
+/* NAVBAR */
+header{
+  background:#fff;
+  box-shadow:0 2px 10px rgba(0,0,0,.06);
+  position:sticky;
+  top:0;
+}
+.nav{
+  max-width:1200px;
+  margin:auto;
+  padding:14px 20px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+.logo{
+  font-size:22px;
+  font-weight:700;
+  color:var(--blue);
+}
+nav a{
+  margin-left:18px;
+  text-decoration:none;
+  color:#444;
+}
+nav a:hover{color:var(--blue);}
+
+/* BACK BUTTON */
+.back-wrap{
+  max-width:1200px;
+  margin:20px auto;
+  padding:0 20px;
+}
+.back-btn{
+  background:var(--blue);
+  color:#fff;
+  padding:8px 18px;
+  border-radius:20px;
+  text-decoration:none;
+  font-size:14px;
+  transition:.3s;
+}
+.back-btn:hover{
+  background:var(--blue-dark);
+  transform:translateX(-4px);
+}
+
+/* TOOL */
+.tool-container{
+  max-width:750px;
+  margin:40px auto;
+  padding:0 20px;
+}
+.tool-box{
+  background:#fff;
+  padding:25px;
+  border-radius:18px;
+  box-shadow:0 10px 30px rgba(0,0,0,.1);
+}
+h1{color:var(--dark);margin-bottom:10px}
+.tool-desc{color:#555;margin-bottom:20px}
+
+/* FORM */
+.form-group{margin-bottom:15px}
+label{display:block;margin-bottom:6px;font-weight:500}
+input{
+  width:100%;
+  padding:12px;
+  border-radius:12px;
+  border:1px solid #ccc;
+}
+
+/* BUTTON */
+.btn{
+  background:var(--blue);
+  color:#fff;
+  border:none;
+  padding:12px;
+  width:100%;
+  border-radius:25px;
+  font-size:16px;
+  cursor:pointer;
+  transition:.3s;
+  margin-top:10px;
+}
+.btn:hover{background:var(--blue-dark)}
+
+/* PREVIEW */
+.preview{
+  margin-top:20px;
+  text-align:center;
+  display:none;
+}
+.preview img{
+  max-width:100%;
+  border-radius:12px;
+  box-shadow:0 5px 20px rgba(0,0,0,.15);
+}
+
+/* FOOTER */
+footer{
+  background:var(--dark);
+  color:#ccc;
+  margin-top:60px;
+  padding:35px 20px;
+}
+.footer{
+  max-width:1200px;
+  margin:auto;
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+  gap:30px;
+}
+footer h3{color:#fff;margin-bottom:10px}
+footer p{font-size:14px}
+</style>
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+<header>
+  <div class="nav">
+    <div class="logo">UtsavAi-Studio</div>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="index.html">Tools</a>
+      <a href="index.html">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<!-- BACK -->
+<div class="back-wrap">
+  <a href="index.html" class="back-btn">← Back to Home</a>
+</div>
+
+<!-- TOOL -->
+<main class="tool-container">
+  <div class="tool-box">
+    <h1>Image to PDF Converter</h1>
+    <p class="tool-desc">
+      Upload an image and convert it into a PDF file instantly.
+    </p>
+
+    <div class="form-group">
+      <label>Upload Image</label>
+      <input type="file" id="imageInput" accept="image/*">
+    </div>
+
+    <button class="btn" onclick="convertToPDF()">Convert to PDF</button>
+
+    <div class="preview" id="preview">
+      <img id="imgPreview">
+      <button class="btn" onclick="downloadPDF()">Download PDF</button>
+    </div>
+  </div>
+</main>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer">
+    <div>
+      <h3>UtsavAi-Studio</h3>
+      <p>Simplifying your digital life.</p>
+    </div>
+    <div>
+      <h3>Contact</h3>
+      <p>Email: utsavaistudio1@gmail.com</p>
+      <p>Phone: 7348154462</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+let selectedImage = "";
+
+document.getElementById("imageInput").addEventListener("change", function(e){
+  const file = e.target.files[0];
+  if(!file) return;
+
+  const reader = new FileReader();
+  reader.onload = function(){
+    selectedImage = reader.result;
+    document.getElementById("imgPreview").src = selectedImage;
+    document.getElementById("preview").style.display = "block";
+  };
+  reader.readAsDataURL(file);
+});
+
+function convertToPDF(){
+  if(!selectedImage){
+    alert("Please upload an image first");
+  }
+}
+
+function downloadPDF(){
+  const { jsPDF } = window.jspdf;
+  const pdf = new jsPDF();
+
+  const img = document.getElementById("imgPreview");
+  const width = pdf.internal.pageSize.getWidth();
+  const height = (img.naturalHeight * width) / img.naturalWidth;
+
+  pdf.addImage(selectedImage, "JPEG", 0, 0, width, height);
+  pdf.save("image-to-pdf.pdf");
+}
+</script>
+
+</body>
+</html>

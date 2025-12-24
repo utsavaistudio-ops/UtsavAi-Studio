@@ -1,0 +1,898 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UtsavAi-Studio | All-in-One Tools Platform</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Reset and Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        :root {
+            --primary-blue: #1a73e8;
+            --dark-blue: #0d47a1;
+            --light-blue: #e8f0fe;
+            --accent-blue: #4285f4;
+            --text-dark: #202124;
+            --text-light: #5f6368;
+            --card-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            --hover-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+            --border-radius: 12px;
+            --transition: all 0.3s ease;
+        }
+
+        body {
+            color: var(--text-dark);
+            background-color: #f8f9fa;
+            line-height: 1.6;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .btn {
+            display: inline-block;
+            background-color: var(--primary-blue);
+            color: white;
+            padding: 12px 28px;
+            border-radius: 50px;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+            transition: var(--transition);
+            font-size: 1rem;
+        }
+
+        .btn:hover {
+            background-color: var(--dark-blue);
+            transform: translateY(-2px);
+            box-shadow: var(--hover-shadow);
+        }
+
+        .section-title {
+            font-size: 2rem;
+            margin-bottom: 10px;
+            color: var(--dark-blue);
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        .section-title:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 60px;
+            height: 4px;
+            background-color: var(--accent-blue);
+            border-radius: 2px;
+        }
+
+        .section-subtitle {
+            font-size: 1.1rem;
+            color: var(--text-light);
+            margin-bottom: 40px;
+            max-width: 600px;
+        }
+
+        /* Header Styles */
+        header {
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 18px 20px;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary-blue);
+            display: flex;
+            align-items: center;
+        }
+
+        .logo span {
+            color: var(--dark-blue);
+        }
+
+        .logo i {
+            margin-right: 10px;
+            font-size: 2rem;
+        }
+
+        nav {
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+
+        .nav-links li {
+            margin-left: 30px;
+        }
+
+        .nav-links a {
+            font-weight: 600;
+            color: var(--text-dark);
+            transition: var(--transition);
+            padding: 8px 0;
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary-blue);
+        }
+
+        .nav-links a:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--primary-blue);
+            transition: var(--transition);
+        }
+
+        .nav-links a:hover:after {
+            width: 100%;
+        }
+
+        .contact-info {
+            display: flex;
+            align-items: center;
+            margin-left: 40px;
+            color: var(--text-light);
+        }
+
+        .contact-info i {
+            margin-right: 8px;
+            color: var(--primary-blue);
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--primary-blue);
+            cursor: pointer;
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 80px 0;
+            background: linear-gradient(135deg, #f5f9ff 0%, #e8f0fe 100%);
+            overflow: hidden;
+        }
+
+        .hero-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+        }
+
+        .hero-content {
+            flex: 1;
+            min-width: 300px;
+            padding-right: 40px;
+        }
+
+        .hero h1 {
+            font-size: 3.2rem;
+            line-height: 1.2;
+            margin-bottom: 20px;
+            color: var(--text-dark);
+        }
+
+        .hero h1 span {
+            color: var(--primary-blue);
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            color: var(--text-light);
+            margin-bottom: 30px;
+            max-width: 500px;
+        }
+
+        .hero-illustration {
+            flex: 1;
+            min-width: 300px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .tools-illustration {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            max-width: 400px;
+        }
+
+        .tool-icon {
+            background-color: white;
+            border-radius: var(--border-radius);
+            padding: 25px;
+            text-align: center;
+            box-shadow: var(--card-shadow);
+            transition: var(--transition);
+        }
+
+        .tool-icon:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--hover-shadow);
+        }
+
+        .tool-icon i {
+            font-size: 2.5rem;
+            color: var(--primary-blue);
+            margin-bottom: 10px;
+        }
+
+        .tool-icon p {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--text-dark);
+            margin: 0;
+        }
+
+        /* Search Section */
+        .search-section {
+            padding: 40px 0;
+            background-color: white;
+        }
+
+        .search-container {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .search-box {
+            position: relative;
+            margin-top: 20px;
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 18px 25px;
+            padding-left: 60px;
+            border: 2px solid #e0e0e0;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            transition: var(--transition);
+        }
+
+        .search-box input:focus {
+            outline: none;
+            border-color: var(--primary-blue);
+            box-shadow: 0 0 0 3px rgba(26, 115, 232, 0.2);
+        }
+
+        .search-box i {
+            position: absolute;
+            left: 25px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-light);
+            font-size: 1.2rem;
+        }
+
+        /* Tools Sections */
+        .tools-section {
+            padding: 80px 0;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 30px;
+            margin-bottom: 80px;
+        }
+
+        .tool-card {
+            background-color: white;
+            border-radius: var(--border-radius);
+            padding: 25px;
+            box-shadow: var(--card-shadow);
+            transition: var(--transition);
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+
+        .tool-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--hover-shadow);
+        }
+
+        .tool-icon-container {
+            width: 60px;
+            height: 60px;
+            background-color: var(--light-blue);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        .tool-icon-container i {
+            font-size: 1.8rem;
+            color: var(--primary-blue);
+        }
+
+        .tool-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+            color: var(--text-dark);
+        }
+
+        .tool-card p {
+            color: var(--text-light);
+            margin-bottom: 20px;
+            flex-grow: 1;
+        }
+
+        .tool-card .btn {
+            align-self: flex-start;
+            padding: 10px 22px;
+            font-size: 0.9rem;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--dark-blue);
+            color: white;
+            padding: 60px 0 30px;
+        }
+
+        .footer-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+
+        .footer-logo {
+            flex: 1;
+            min-width: 300px;
+            margin-bottom: 30px;
+        }
+
+        .footer-logo .logo {
+            color: white;
+            margin-bottom: 15px;
+            font-size: 2rem;
+        }
+
+        .footer-logo p {
+            color: rgba(255, 255, 255, 0.8);
+            max-width: 300px;
+            line-height: 1.8;
+        }
+
+        .footer-contact {
+            flex: 1;
+            min-width: 300px;
+            margin-bottom: 30px;
+        }
+
+        .footer-contact h3 {
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+            color: white;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .contact-item i {
+            margin-right: 12px;
+            color: var(--accent-blue);
+            font-size: 1.2rem;
+            width: 24px;
+        }
+
+        .footer-links {
+            flex: 1;
+            min-width: 200px;
+            margin-bottom: 30px;
+        }
+
+        .footer-links h3 {
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+            color: white;
+        }
+
+        .footer-links ul {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 12px;
+        }
+
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.8);
+            transition: var(--transition);
+        }
+
+        .footer-links a:hover {
+            color: white;
+            padding-left: 5px;
+        }
+
+        .footer-bottom {
+            width: 100%;
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.9rem;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .hero h1 {
+                font-size: 2.8rem;
+            }
+
+            .tools-grid {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            }
+        }
+
+        @media (max-width: 768px) {
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            .nav-links, .contact-info {
+                display: none;
+            }
+
+            .mobile-nav-active .nav-links,
+            .mobile-nav-active .contact-info {
+                display: flex;
+                flex-direction: column;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background-color: white;
+                box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+                padding: 20px;
+                z-index: 1000;
+            }
+
+            .mobile-nav-active .nav-links {
+                margin-bottom: 20px;
+            }
+
+            .mobile-nav-active .nav-links li {
+                margin: 0 0 15px 0;
+            }
+
+            .mobile-nav-active .contact-info {
+                margin-left: 0;
+                align-items: flex-start;
+            }
+
+            .hero-container {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .hero-content {
+                padding-right: 0;
+                margin-bottom: 40px;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .tools-illustration {
+                max-width: 100%;
+            }
+
+            .section-title {
+                font-size: 1.8rem;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+
+            .hero p {
+                font-size: 1.1rem;
+            }
+
+            .btn {
+                padding: 10px 24px;
+            }
+
+            .tools-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-container > div {
+                min-width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-container">
+            <a href="#" class="logo">
+                <i class="fas fa-cubes"></i>
+                UtsavAi<span>Studio</span>
+            </a>
+            
+            <button class="mobile-menu-btn" id="mobileMenuBtn">
+                <i class="fas fa-bars"></i>
+            </button>
+            
+            <nav id="mainNav">
+                <ul class="nav-links">
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#tools">Tools</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+                <div class="contact-info">
+                    <div>
+                        <i class="fas fa-envelope"></i>
+                        <span>utsavaistudio1@gmail.com</span>
+                    </div>
+                    <div style="margin-left: 20px;">
+                        <i class="fas fa-phone"></i>
+                        <span>7348154462</span>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="container hero-container">
+            <div class="hero-content">
+                <h1>Your Daily Tools, <span>All in One Place</span></h1>
+                <p>Convert, calculate, compress, and simplify your everyday tasks — fast and free.</p>
+                <a href="#tools" class="btn">Explore Tools</a>
+            </div>
+            <div class="hero-illustration">
+                <div class="tools-illustration">
+                    <div class="tool-icon">
+                        <i class="fas fa-image"></i>
+                        <p>Image Tools</p>
+                    </div>
+                    <div class="tool-icon">
+                        <i class="fas fa-file-pdf"></i>
+                        <p>Document Tools</p>
+                    </div>
+                    <div class="tool-icon">
+                        <i class="fas fa-calculator"></i>
+                        <p>Calculator Tools</p>
+                    </div>
+                    <div class="tool-icon">
+                        <i class="fas fa-code"></i>
+                        <p>Developer Tools</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Search Section -->
+    <section class="search-section">
+        <div class="container search-container">
+            <h2 class="section-title">Find the Tool You Need</h2>
+            <p class="section-subtitle">Search through our collection of free tools to find exactly what you need for your task</p>
+            <div class="search-box">
+                <i class="fas fa-search"></i>
+                <input type="text" id="toolSearch" placeholder="Search a tool...">
+            </div>
+        </div>
+    </section>
+
+    <!-- Tools Sections -->
+    <section class="tools-section" id="tools">
+        <div class="container">
+            <!-- Image Tools -->
+            <div class="section-header">
+                <h2 class="section-title">🖼 Image Tools</h2>
+                <p class="section-subtitle">Transform, optimize and edit your images with our powerful image tools</p>
+            </div>
+            <div class="tools-grid" id="imageTools">
+                <!-- Image tools will be populated by JavaScript -->
+            </div>
+
+            <!-- Document Tools -->
+            <div class="section-header">
+                <h2 class="section-title">📄 Document Tools</h2>
+                <p class="section-subtitle">Handle PDFs and documents with ease using our document management tools</p>
+            </div>
+            <div class="tools-grid" id="documentTools">
+                <!-- Document tools will be populated by JavaScript -->
+            </div>
+
+            <!-- Calculator Tools -->
+            <div class="section-header">
+                <h2 class="section-title">🧮 Calculator Tools</h2>
+                <p class="section-subtitle">Perform calculations for various needs from scientific to financial</p>
+            </div>
+            <div class="tools-grid" id="calculatorTools">
+                <!-- Calculator tools will be populated by JavaScript -->
+            </div>
+
+            <!-- Web Developer Tools -->
+            <div class="section-header">
+                <h2 class="section-title">🌐 Web Developer Tools</h2>
+                <p class="section-subtitle">Tools for frontend, backend and full stack web development</p>
+            </div>
+            <div class="tools-grid" id="webdevTools">
+                <!-- Web dev tools will be populated by JavaScript -->
+            </div>
+
+            <!-- Design Tools -->
+            <div class="section-header">
+                <h2 class="section-title">🎨 Design Tools</h2>
+                <p class="section-subtitle">Create stunning designs, logos, thumbnails and edit videos</p>
+            </div>
+            <div class="tools-grid" id="designTools">
+                <!-- Design tools will be populated by JavaScript -->
+            </div>
+
+            <!-- Utility Tools -->
+            <div class="section-header">
+                <h2 class="section-title">🛠️ Utility Tools</h2>
+                <p class="section-subtitle">Handy utilities for everyday tasks and productivity</p>
+            </div>
+            <div class="tools-grid" id="utilityTools">
+                <!-- Utility tools will be populated by JavaScript -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="contact">
+        <div class="container footer-container">
+            <div class="footer-logo">
+                <a href="#" class="logo">
+                    <i class="fas fa-cubes"></i>
+                    UtsavAi<span>Studio</span>
+                </a>
+                <p>Simplifying your digital life with a comprehensive collection of free, easy-to-use online tools for everyday tasks.</p>
+            </div>
+            
+            <div class="footer-contact">
+                <h3>Contact Us</h3>
+                <div class="contact-item">
+                    <i class="fas fa-envelope"></i>
+                    <span>utsavaistudio1@gmail.com</span>
+                </div>
+                <div class="contact-item">
+                    <i class="fas fa-phone"></i>
+                    <span>7348154462</span>
+                </div>
+            </div>
+            
+            <div class="footer-links">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#tools">All Tools</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Terms of Use</a></li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <div class="container">
+                <p>&copy; 2023 UtsavAi-Studio. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Tool Data
+        const toolData = {
+            imageTools: [
+                { name: "Image Converter", desc: "Convert images between different formats", icon: "fas fa-exchange-alt" },
+                { name: "Image Compressor", desc: "Reduce image file size without losing quality", icon: "fas fa-compress-alt" },
+                { name: "Image BG Remover", desc: "Remove background from images automatically", icon: "fas fa-eraser" },
+                { name: "Image Cropper", desc: "Crop and resize images to desired dimensions", icon: "fas fa-crop" },
+                { name: "Image to Text (OCR)", desc: "Extract text from images using OCR technology", icon: "fas fa-font" },
+                { name: "Image to Animation", desc: "Create animations from static images", icon: "fas fa-film" }
+            ],
+            documentTools: [
+                { name: "PDF to Word / Word to PDF", desc: "Convert between PDF and Word documents", icon: "fas fa-file-word" },
+                { name: "PDF Compressor", desc: "Reduce PDF file size while preserving quality", icon: "fas fa-file-archive" },
+                { name: "PDF Merger & Splitter", desc: "Combine multiple PDFs or split large ones", icon: "fas fa-copy" },
+                { name: "PDF Lock/Unlock", desc: "Add or remove password protection from PDFs", icon: "fas fa-lock" },
+                { name: "eSign PDF", desc: "Add electronic signatures to PDF documents", icon: "fas fa-signature" },
+                { name: "Image to PDF", desc: "Convert images to PDF files", icon: "fas fa-file-pdf" }
+            ],
+            calculatorTools: [
+                { name: "Scientific Calculator", desc: "Advanced calculator for complex calculations", icon: "fas fa-calculator" },
+                { name: "Age Calculator", desc: "Calculate age from birth date to present", icon: "fas fa-birthday-cake" },
+                { name: "BMI Calculator", desc: "Calculate Body Mass Index", icon: "fas fa-weight" },
+                { name: "Loan EMI Calculator", desc: "Calculate Equated Monthly Installments", icon: "fas fa-hand-holding-usd" },
+                { name: "GST Calculator", desc: "Calculate Goods and Services Tax", icon: "fas fa-percentage" },
+                { name: "Currency Converter", desc: "Convert between world currencies", icon: "fas fa-money-bill-wave" }
+            ],
+            webdevTools: [
+                { name: "Frontend Tools", desc: "Tools for HTML, CSS and JavaScript development", icon: "fas fa-code" },
+                { name: "Backend Tools", desc: "Tools for server-side development", icon: "fas fa-server" },
+                { name: "Full Stack Tools", desc: "Complete suite for full stack development", icon: "fas fa-layer-group" }
+            ],
+            designTools: [
+                { name: "Thumbnail Design", desc: "Create eye-catching thumbnails for videos", icon: "fas fa-images" },
+                { name: "Logo Maker", desc: "Design professional logos for businesses", icon: "fas fa-palette" },
+                { name: "Video Editor", desc: "Edit videos online with our tool", icon: "fas fa-video" }
+            ],
+            utilityTools: [
+                { name: "QR Code Generator & Scanner", desc: "Create and scan QR codes", icon: "fas fa-qrcode" },
+                { name: "Barcode Generator", desc: "Generate barcodes for products", icon: "fas fa-barcode" },
+                { name: "Unit Converter", desc: "Convert between different units of measurement", icon: "fas fa-ruler-combined" },
+                { name: "Random Number/Password Generator", desc: "Generate secure random numbers and passwords", icon: "fas fa-key" }
+            ]
+        };
+
+        // Populate tool cards
+        function populateToolCards() {
+            for (const category in toolData) {
+                const container = document.getElementById(category);
+                if (!container) continue;
+                
+                toolData[category].forEach(tool => {
+                    const toolCard = document.createElement('div');
+                    toolCard.className = 'tool-card';
+                    toolCard.innerHTML = `
+                        <div class="tool-icon-container">
+                            <i class="${tool.icon}"></i>
+                        </div>
+                        <h3>${tool.name}</h3>
+                        <p>${tool.desc}</p>
+                        <a href="#" class="btn">Use Tool</a>
+                    `;
+                    container.appendChild(toolCard);
+                });
+            }
+        }
+
+        // Search functionality
+        function setupSearch() {
+            const searchInput = document.getElementById('toolSearch');
+            const allToolCards = document.querySelectorAll('.tool-card');
+            
+            searchInput.addEventListener('input', function() {
+                const searchTerm = this.value.toLowerCase().trim();
+                
+                allToolCards.forEach(card => {
+                    const toolName = card.querySelector('h3').textContent.toLowerCase();
+                    const toolDesc = card.querySelector('p').textContent.toLowerCase();
+                    
+                    if (toolName.includes(searchTerm) || toolDesc.includes(searchTerm)) {
+                        card.style.display = 'flex';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+                
+                // Show/hide section headers based on visibility of tools
+                document.querySelectorAll('.tools-grid').forEach(grid => {
+                    const visibleCards = Array.from(grid.children).filter(card => card.style.display !== 'none');
+                    const sectionHeader = grid.previousElementSibling;
+                    
+                    if (visibleCards.length === 0 && sectionHeader.classList.contains('section-header')) {
+                        sectionHeader.style.display = 'none';
+                    } else if (sectionHeader.classList.contains('section-header')) {
+                        sectionHeader.style.display = 'block';
+                    }
+                });
+            });
+        }
+
+        // Mobile menu functionality
+        function setupMobileMenu() {
+            const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+            const header = document.querySelector('header');
+            
+            mobileMenuBtn.addEventListener('click', function() {
+                header.classList.toggle('mobile-nav-active');
+                
+                // Change icon
+                const icon = this.querySelector('i');
+                if (header.classList.contains('mobile-nav-active')) {
+                    icon.className = 'fas fa-times';
+                } else {
+                    icon.className = 'fas fa-bars';
+                }
+            });
+            
+            // Close mobile menu when clicking on a link
+            document.querySelectorAll('.nav-links a').forEach(link => {
+                link.addEventListener('click', () => {
+                    header.classList.remove('mobile-nav-active');
+                    mobileMenuBtn.querySelector('i').className = 'fas fa-bars';
+                });
+            });
+        }
+
+        // Smooth scrolling for anchor links
+        function setupSmoothScrolling() {
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    const targetId = this.getAttribute('href');
+                    if (targetId === '#') return;
+                    
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 80,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+        }
+
+        // Initialize everything when DOM is loaded
+        document.addEventListener('DOMContentLoaded', function() {
+            populateToolCards();
+            setupSearch();
+            setupMobileMenu();
+            setupSmoothScrolling();
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Unit Converter – UtsavAi-Studio</title>
+<meta name="description" content="Free Unit Converter by UtsavAi-Studio. Convert length, weight and temperature instantly.">
+<meta name="robots" content="index, follow">
+
+<style>
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:Segoe UI, sans-serif;
+}
+
+:root{
+  --blue:#1e88e5;
+  --blue-dark:#1565c0;
+  --light:#f5f9ff;
+  --dark:#0d1b2a;
+}
+
+body{
+  background:#fff;
+  color:#333;
+}
+
+/* NAVBAR */
+header{
+  background:#fff;
+  box-shadow:0 2px 10px rgba(0,0,0,.06);
+  position:sticky;
+  top:0;
+}
+
+.nav{
+  max-width:1200px;
+  margin:auto;
+  padding:14px 20px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+
+.logo{
+  font-size:22px;
+  font-weight:700;
+  color:var(--blue);
+}
+
+nav a{
+  margin-left:18px;
+  text-decoration:none;
+  color:#444;
+}
+nav a:hover{color:var(--blue);}
+
+/* BACK BUTTON */
+.back-wrap{
+  max-width:1200px;
+  margin:20px auto;
+  padding:0 20px;
+}
+
+.back-btn{
+  background:var(--blue);
+  color:#fff;
+  padding:8px 18px;
+  border-radius:20px;
+  text-decoration:none;
+  font-size:14px;
+  transition:.3s;
+}
+.back-btn:hover{
+  background:var(--blue-dark);
+  transform:translateX(-4px);
+}
+
+/* TOOL */
+.tool-container{
+  max-width:700px;
+  margin:40px auto;
+  padding:0 20px;
+}
+
+.tool-box{
+  background:#fff;
+  padding:25px;
+  border-radius:18px;
+  box-shadow:0 10px 30px rgba(0,0,0,.1);
+}
+
+.tool-container h1{
+  color:var(--dark);
+  margin-bottom:10px;
+}
+
+.tool-desc{
+  color:#555;
+  margin-bottom:20px;
+}
+
+/* FORM */
+.form-group{
+  margin-bottom:15px;
+}
+
+label{
+  display:block;
+  margin-bottom:6px;
+  font-weight:500;
+}
+
+input, select{
+  width:100%;
+  padding:12px;
+  border-radius:12px;
+  border:1px solid #ccc;
+  font-size:15px;
+}
+
+/* BUTTON */
+.btn{
+  background:var(--blue);
+  color:#fff;
+  border:none;
+  padding:12px;
+  width:100%;
+  border-radius:25px;
+  font-size:16px;
+  cursor:pointer;
+  transition:.3s;
+}
+.btn:hover{
+  background:var(--blue-dark);
+}
+
+/* RESULT */
+.result{
+  margin-top:20px;
+  padding:15px;
+  background:var(--light);
+  border-radius:14px;
+  font-weight:600;
+  display:none;
+}
+
+/* FOOTER */
+footer{
+  background:var(--dark);
+  color:#ccc;
+  margin-top:60px;
+  padding:35px 20px;
+}
+
+.footer{
+  max-width:1200px;
+  margin:auto;
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+  gap:30px;
+}
+
+footer h3{color:#fff;margin-bottom:10px;}
+footer p{font-size:14px;}
+</style>
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+<header>
+  <div class="nav">
+    <div class="logo">UtsavAi-Studio</div>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="index.html">Tools</a>
+      <a href="index.html">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<!-- BACK -->
+<div class="back-wrap">
+  <a href="index.html" class="back-btn">← Back to Home</a>
+</div>
+
+<!-- TOOL -->
+<main class="tool-container">
+  <div class="tool-box">
+    <h1>Unit Converter</h1>
+    <p class="tool-desc">
+      Convert Length, Weight & Temperature units easily.
+    </p>
+
+    <div class="form-group">
+      <label>Conversion Type</label>
+      <select id="type" onchange="updateUnits()">
+        <option value="length">Length</option>
+        <option value="weight">Weight</option>
+        <option value="temperature">Temperature</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label>Value</label>
+      <input type="number" id="value" placeholder="Enter value">
+    </div>
+
+    <div class="form-group">
+      <label>From</label>
+      <select id="fromUnit"></select>
+    </div>
+
+    <div class="form-group">
+      <label>To</label>
+      <select id="toUnit"></select>
+    </div>
+
+    <button class="btn" onclick="convert()">Convert</button>
+
+    <div class="result" id="result"></div>
+  </div>
+</main>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer">
+    <div>
+      <h3>UtsavAi-Studio</h3>
+      <p>Simplifying your digital life.</p>
+    </div>
+    <div>
+      <h3>Contact</h3>
+      <p>Email: utsavaistudio1@gmail.com</p>
+      <p>Phone: 7348154462</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+const units = {
+  length: {
+    Meter:1,
+    Kilometer:1000,
+    Centimeter:0.01,
+    Inch:0.0254,
+    Foot:0.3048
+  },
+  weight: {
+    Kilogram:1,
+    Gram:0.001,
+    Pound:0.453592
+  },
+  temperature: ["Celsius","Fahrenheit","Kelvin"]
+};
+
+const fromUnit = document.getElementById("fromUnit");
+const toUnit = document.getElementById("toUnit");
+
+function updateUnits(){
+  const type = document.getElementById("type").value;
+  fromUnit.innerHTML = "";
+  toUnit.innerHTML = "";
+
+  if(type === "temperature"){
+    units.temperature.forEach(u=>{
+      fromUnit.add(new Option(u,u));
+      toUnit.add(new Option(u,u));
+    });
+  }else{
+    Object.keys(units[type]).forEach(u=>{
+      fromUnit.add(new Option(u,u));
+      toUnit.add(new Option(u,u));
+    });
+  }
+}
+updateUnits();
+
+function convert(){
+  const type = document.getElementById("type").value;
+  const val = parseFloat(document.getElementById("value").value);
+  if(isNaN(val)){
+    alert("Enter a valid value");
+    return;
+  }
+
+  let result;
+
+  if(type === "temperature"){
+    const from = fromUnit.value;
+    const to = toUnit.value;
+    let c;
+
+    if(from === "Celsius") c = val;
+    if(from === "Fahrenheit") c = (val-32)*5/9;
+    if(from === "Kelvin") c = val-273.15;
+
+    if(to === "Celsius") result = c;
+    if(to === "Fahrenheit") result = c*9/5+32;
+    if(to === "Kelvin") result = c+273.15;
+  }else{
+    result = val * units[type][fromUnit.value] / units[type][toUnit.value];
+  }
+
+  const resBox = document.getElementById("result");
+  resBox.innerText = "Result: " + result.toFixed(4);
+  resBox.style.display = "block";
+}
+</script>
+
+</body>
+</html>

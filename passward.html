@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Password Generator – UtsavAi-Studio</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Generate strong and secure passwords online with UtsavAi-Studio Password Generator. Free & fast.">
+
+<style>
+*{box-sizing:border-box;font-family:Arial,Helvetica,sans-serif}
+body{margin:0;background:#f4f9ff;color:#222}
+
+/* NAVBAR */
+nav{
+  background:#fff;
+  padding:12px 20px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  box-shadow:0 2px 8px rgba(0,0,0,.05)
+}
+.logo{display:flex;align-items:center;gap:8px}
+.logo img{height:32px}
+.logo span{font-size:20px;font-weight:700;color:#1e88e5}
+nav a{
+  margin-left:18px;
+  text-decoration:none;
+  color:#333;
+  font-weight:500
+}
+nav a:hover{color:#1e88e5}
+
+/* MAIN */
+.container{
+  max-width:800px;
+  margin:40px auto;
+  padding:20px
+}
+.back-btn{
+  text-decoration:none;
+  color:#1e88e5;
+  font-weight:600
+}
+h1{text-align:center;color:#1e88e5}
+.sub{text-align:center;color:#555;margin-bottom:25px}
+
+/* TOOL */
+.tool-box{
+  background:#fff;
+  border-radius:16px;
+  padding:30px;
+  box-shadow:0 10px 30px rgba(0,0,0,.08)
+}
+
+.output{
+  display:flex;
+  gap:10px;
+  margin-bottom:20px
+}
+.output input{
+  flex:1;
+  padding:14px;
+  border-radius:12px;
+  border:1px solid #ccc;
+  font-size:16px
+}
+
+button{
+  background:#1e88e5;
+  color:#fff;
+  border:none;
+  padding:14px 18px;
+  border-radius:30px;
+  cursor:pointer;
+  transition:.3s
+}
+button:hover{background:#1565c0}
+
+.options label{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  margin:10px 0;
+  font-size:15px
+}
+
+input[type=range]{
+  width:100%
+}
+
+/* FOOTER */
+footer{
+  background:#fff;
+  padding:25px;
+  margin-top:50px;
+  text-align:center;
+  box-shadow:0 -2px 8px rgba(0,0,0,.05)
+}
+footer h3{margin:0;color:#1e88e5}
+footer p{margin:6px 0;color:#555}
+</style>
+</head>
+
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="logo">
+    <img src="logo.png" alt="logo">
+    <span>UtsavAi-Studio</span>
+  </div>
+  <div>
+    <a href="index.html">Home</a>
+    <a href="index.html#tools">Tools</a>
+    <a href="mailto:utsavaistudio1@gmail.com">Contact</a>
+  </div>
+</nav>
+
+<div class="container">
+<a class="back-btn" href="index.html">← Back to Home</a>
+
+<h1>Password Generator</h1>
+<p class="sub">Create strong & secure passwords instantly.</p>
+
+<div class="tool-box">
+
+  <div class="output">
+    <input type="text" id="password" placeholder="Your secure password" readonly>
+    <button onclick="copyPassword()">Copy</button>
+  </div>
+
+  <label>Password Length: <b><span id="len">12</span></b></label>
+  <input type="range" id="length" min="6" max="32" value="12" oninput="updateLen()">
+
+  <div class="options">
+    <label><input type="checkbox" id="upper" checked> Uppercase Letters</label>
+    <label><input type="checkbox" id="lower" checked> Lowercase Letters</label>
+    <label><input type="checkbox" id="numbers" checked> Numbers</label>
+    <label><input type="checkbox" id="symbols" checked> Symbols</label>
+  </div>
+
+  <button onclick="generate()">Generate Password</button>
+
+</div>
+</div>
+
+<footer>
+<h3>UtsavAi-Studio</h3>
+<p>Simplifying your digital life.</p>
+<p>Email: utsavaistudio1@gmail.com</p>
+</footer>
+
+<script>
+const upper="ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+const lower="abcdefghijklmnopqrstuvwxyz";
+const numbers="0123456789";
+const symbols="!@#$%^&*()_+[]{}<>?";
+
+function updateLen(){
+  document.getElementById("len").innerText=
+    document.getElementById("length").value;
+}
+
+function generate(){
+  let chars="";
+  if(upper.checked)chars+=upper;
+  if(lower.checked)chars+=lower;
+  if(numbers.checked)chars+=numbers;
+  if(symbols.checked)chars+=symbols;
+
+  if(chars===""){
+    alert("Select at least one option");
+    return;
+  }
+
+  let pwd="";
+  const len=length.value;
+  for(let i=0;i<len;i++){
+    pwd+=chars[Math.floor(Math.random()*chars.length)];
+  }
+  document.getElementById("password").value=pwd;
+}
+
+function copyPassword(){
+  const pwd=document.getElementById("password");
+  if(!pwd.value)return;
+  pwd.select();
+  document.execCommand("copy");
+  alert("Password copied!");
+}
+
+// Auto generate on load
+generate();
+</script>
+
+</body>
+</html>

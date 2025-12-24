@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>PDF to Word – UtsavAi-Studio</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Convert PDF to Word document online easily with UtsavAi-Studio. Fast, secure and user-friendly.">
+
+<style>
+*{box-sizing:border-box;font-family:Arial,Helvetica,sans-serif}
+body{margin:0;background:#f4f9ff;color:#222}
+
+/* NAVBAR */
+nav{
+  background:#fff;
+  padding:12px 20px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  box-shadow:0 2px 8px rgba(0,0,0,.05)
+}
+.logo{display:flex;align-items:center;gap:8px}
+.logo img{height:32px}
+.logo span{font-size:20px;font-weight:700;color:#1e88e5}
+nav a{
+  margin-left:18px;
+  text-decoration:none;
+  color:#333;
+  font-weight:500
+}
+nav a:hover{color:#1e88e5}
+
+/* MAIN */
+.container{
+  max-width:900px;
+  margin:40px auto;
+  padding:20px
+}
+.back-btn{
+  text-decoration:none;
+  color:#1e88e5;
+  font-weight:600
+}
+h1{text-align:center;color:#1e88e5}
+.sub{text-align:center;color:#555;margin-bottom:25px}
+
+/* TOOL */
+.tool-box{
+  background:#fff;
+  border-radius:16px;
+  padding:25px;
+  box-shadow:0 10px 30px rgba(0,0,0,.08);
+  text-align:center
+}
+
+input,button{
+  padding:14px 18px;
+  border-radius:30px;
+  border:1px solid #ddd;
+  font-size:15px;
+  margin:8px
+}
+button{
+  background:#1e88e5;
+  color:#fff;
+  border:none;
+  cursor:pointer;
+  transition:.3s
+}
+button:hover{background:#1565c0}
+
+.file-info{
+  margin-top:15px;
+  color:#444;
+  font-size:14px
+}
+
+.notice{
+  margin-top:20px;
+  background:#eef6ff;
+  padding:15px;
+  border-radius:12px;
+  color:#333;
+  font-size:14px
+}
+
+/* FOOTER */
+footer{
+  background:#fff;
+  padding:25px;
+  margin-top:50px;
+  text-align:center;
+  box-shadow:0 -2px 8px rgba(0,0,0,.05)
+}
+footer h3{margin:0;color:#1e88e5}
+footer p{margin:6px 0;color:#555}
+</style>
+</head>
+
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="logo">
+    <img src="logo.png" alt="logo">
+    <span>UtsavAi-Studio</span>
+  </div>
+  <div>
+    <a href="index.html">Home</a>
+    <a href="index.html#tools">Tools</a>
+    <a href="mailto:utsavaistudio1@gmail.com">Contact</a>
+  </div>
+</nav>
+
+<div class="container">
+<a class="back-btn" href="index.html">← Back to Home</a>
+
+<h1>PDF to Word Converter</h1>
+<p class="sub">Convert your PDF files into editable Word documents.</p>
+
+<div class="tool-box">
+
+  <input type="file" id="pdfFile" accept="application/pdf">
+  <br>
+  <button onclick="convert()">Convert to Word</button>
+  <button onclick="download()">Download</button>
+
+  <div class="file-info" id="fileInfo"></div>
+
+  <div class="notice">
+    ⚠️ <b>Note:</b> PDF to Word conversion requires server processing.<br>
+    This tool UI is fully ready. Backend/API can be connected later without changing design.
+  </div>
+
+</div>
+</div>
+
+<footer>
+<h3>UtsavAi-Studio</h3>
+<p>Simplifying your digital life.</p>
+<p>Email: utsavaistudio1@gmail.com</p>
+</footer>
+
+<script>
+let uploadedFile=null;
+
+document.getElementById("pdfFile").onchange=e=>{
+  uploadedFile=e.target.files[0];
+  if(uploadedFile){
+    document.getElementById("fileInfo").innerText=
+      "Selected File: "+uploadedFile.name+" ("+Math.round(uploadedFile.size/1024)+" KB)";
+  }
+};
+
+function convert(){
+  if(!uploadedFile){
+    alert("Please upload a PDF file first");
+    return;
+  }
+  alert("Conversion started (demo mode). Backend can be connected here.");
+}
+
+function download(){
+  alert("Converted Word file will be downloadable once backend is connected.");
+}
+</script>
+
+</body>
+</html>

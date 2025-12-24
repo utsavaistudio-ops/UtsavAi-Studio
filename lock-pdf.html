@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Lock PDF – UtsavAi-Studio</title>
+<meta name="description" content="Free Lock PDF tool by UtsavAi-Studio. Protect your PDF with password online.">
+<meta name="robots" content="index, follow">
+
+<style>
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:Segoe UI, sans-serif;
+}
+
+:root{
+  --blue:#1e88e5;
+  --blue-dark:#1565c0;
+  --light:#f5f9ff;
+  --dark:#0d1b2a;
+}
+
+body{
+  background:#fff;
+  color:#333;
+}
+
+/* NAVBAR */
+header{
+  background:#fff;
+  box-shadow:0 2px 10px rgba(0,0,0,.06);
+  position:sticky;
+  top:0;
+}
+
+.nav{
+  max-width:1200px;
+  margin:auto;
+  padding:14px 20px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+
+.logo{
+  font-size:22px;
+  font-weight:700;
+  color:var(--blue);
+}
+
+nav a{
+  margin-left:18px;
+  text-decoration:none;
+  color:#444;
+}
+nav a:hover{color:var(--blue);}
+
+/* BACK BUTTON */
+.back-wrap{
+  max-width:1200px;
+  margin:20px auto;
+  padding:0 20px;
+}
+
+.back-btn{
+  background:var(--blue);
+  color:#fff;
+  padding:8px 18px;
+  border-radius:20px;
+  text-decoration:none;
+  font-size:14px;
+  transition:.3s;
+}
+.back-btn:hover{
+  background:var(--blue-dark);
+  transform:translateX(-4px);
+}
+
+/* TOOL */
+.tool-container{
+  max-width:700px;
+  margin:40px auto;
+  padding:0 20px;
+}
+
+.tool-box{
+  background:#fff;
+  padding:25px;
+  border-radius:18px;
+  box-shadow:0 10px 30px rgba(0,0,0,.1);
+}
+
+h1{
+  color:var(--dark);
+  margin-bottom:10px;
+}
+
+.tool-desc{
+  color:#555;
+  margin-bottom:20px;
+}
+
+/* FORM */
+.form-group{
+  margin-bottom:15px;
+}
+
+label{
+  display:block;
+  margin-bottom:6px;
+  font-weight:500;
+}
+
+input{
+  width:100%;
+  padding:12px;
+  border-radius:12px;
+  border:1px solid #ccc;
+}
+
+/* BUTTON */
+.btn{
+  background:var(--blue);
+  color:#fff;
+  border:none;
+  padding:12px;
+  width:100%;
+  border-radius:25px;
+  font-size:16px;
+  cursor:pointer;
+  transition:.3s;
+  margin-top:10px;
+}
+.btn:hover{background:var(--blue-dark);}
+
+/* RESULT */
+.result{
+  margin-top:20px;
+  padding:16px;
+  background:var(--light);
+  border-radius:14px;
+  display:none;
+  text-align:center;
+  font-weight:600;
+}
+
+/* FOOTER */
+footer{
+  background:var(--dark);
+  color:#ccc;
+  margin-top:60px;
+  padding:35px 20px;
+}
+
+.footer{
+  max-width:1200px;
+  margin:auto;
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+  gap:30px;
+}
+
+footer h3{color:#fff;margin-bottom:10px;}
+footer p{font-size:14px;}
+</style>
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+<header>
+  <div class="nav">
+    <div class="logo">UtsavAi-Studio</div>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="index.html">Tools</a>
+      <a href="index.html">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<!-- BACK -->
+<div class="back-wrap">
+  <a href="index.html" class="back-btn">← Back to Home</a>
+</div>
+
+<!-- TOOL -->
+<main class="tool-container">
+  <div class="tool-box">
+    <h1>Lock PDF</h1>
+    <p class="tool-desc">
+      Protect your PDF file with a password.
+    </p>
+
+    <div class="form-group">
+      <label>Upload PDF</label>
+      <input type="file" accept="application/pdf">
+    </div>
+
+    <div class="form-group">
+      <label>Set Password</label>
+      <input type="password" placeholder="Enter password">
+    </div>
+
+    <div class="form-group">
+      <label>Confirm Password</label>
+      <input type="password" placeholder="Confirm password">
+    </div>
+
+    <button class="btn" onclick="lockPDF()">Lock PDF</button>
+
+    <div class="result" id="result">
+      🔒 PDF locked successfully  
+      <br><br>
+      <button class="btn">Download Locked PDF</button>
+    </div>
+  </div>
+</main>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer">
+    <div>
+      <h3>UtsavAi-Studio</h3>
+      <p>Simplifying your digital life.</p>
+    </div>
+    <div>
+      <h3>Contact</h3>
+      <p>Email: utsavaistudio1@gmail.com</p>
+      <p>Phone: 7348154462</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+function lockPDF(){
+  document.getElementById("result").style.display="block";
+}
+</script>
+
+</body>
+</html>

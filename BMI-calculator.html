@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>BMI Calculator – UtsavAi-Studio</title>
+<meta name="description" content="Free BMI Calculator by UtsavAi-Studio. Calculate your Body Mass Index instantly.">
+<meta name="robots" content="index, follow">
+
+<style>
+/* ===== RESET ===== */
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:Segoe UI, sans-serif;
+}
+
+/* ===== COLORS ===== */
+:root{
+  --blue:#1e88e5;
+  --blue-dark:#1565c0;
+  --light:#f5f9ff;
+  --dark:#0d1b2a;
+}
+
+/* ===== BODY ===== */
+body{
+  background:#fff;
+  color:#333;
+}
+
+/* ===== NAVBAR ===== */
+header{
+  background:#fff;
+  box-shadow:0 2px 10px rgba(0,0,0,.06);
+  position:sticky;
+  top:0;
+}
+
+.nav{
+  max-width:1200px;
+  margin:auto;
+  padding:14px 20px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+
+.logo{
+  font-size:22px;
+  font-weight:700;
+  color:var(--blue);
+}
+
+nav a{
+  margin-left:18px;
+  text-decoration:none;
+  color:#444;
+  font-weight:500;
+}
+nav a:hover{color:var(--blue);}
+
+/* ===== BACK BUTTON ===== */
+.back-wrap{
+  max-width:1200px;
+  margin:20px auto;
+  padding:0 20px;
+}
+
+.back-btn{
+  background:var(--blue);
+  color:#fff;
+  padding:8px 18px;
+  border-radius:20px;
+  text-decoration:none;
+  font-size:14px;
+  display:inline-block;
+  transition:.3s;
+}
+.back-btn:hover{
+  background:var(--blue-dark);
+  transform:translateX(-4px);
+}
+
+/* ===== TOOL AREA ===== */
+.tool-container{
+  max-width:800px;
+  margin:40px auto;
+  padding:0 20px;
+}
+
+.tool-container h1{
+  margin-bottom:10px;
+  color:var(--dark);
+}
+
+.tool-desc{
+  color:#555;
+  margin-bottom:25px;
+}
+
+.tool-box{
+  background:#fff;
+  padding:25px;
+  border-radius:15px;
+  box-shadow:0 6px 25px rgba(0,0,0,.08);
+}
+
+/* ===== FORM ===== */
+.form-group{
+  margin-bottom:15px;
+}
+
+label{
+  display:block;
+  margin-bottom:6px;
+  font-weight:500;
+}
+
+input{
+  width:100%;
+  padding:12px;
+  border-radius:10px;
+  border:1px solid #ccc;
+  font-size:15px;
+}
+
+/* ===== BUTTON ===== */
+.calc-btn{
+  margin-top:15px;
+  background:var(--blue);
+  color:#fff;
+  border:none;
+  padding:12px;
+  width:100%;
+  border-radius:25px;
+  font-size:16px;
+  cursor:pointer;
+  transition:.3s;
+}
+.calc-btn:hover{
+  background:var(--blue-dark);
+}
+
+/* ===== RESULT ===== */
+.result{
+  margin-top:20px;
+  padding:15px;
+  background:var(--light);
+  border-radius:12px;
+  text-align:center;
+  display:none;
+}
+
+.result h3{
+  color:var(--blue);
+  margin-bottom:5px;
+}
+
+/* ===== FOOTER ===== */
+footer{
+  background:var(--dark);
+  color:#ccc;
+  margin-top:60px;
+  padding:35px 20px;
+}
+
+.footer{
+  max-width:1200px;
+  margin:auto;
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+  gap:30px;
+}
+
+footer h3{color:#fff;margin-bottom:10px;}
+footer p{font-size:14px;}
+</style>
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+<header>
+  <div class="nav">
+    <div class="logo">UtsavAi-Studio</div>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="index.html">Tools</a>
+      <a href="index.html">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<!-- BACK BUTTON -->
+<div class="back-wrap">
+  <a href="index.html" class="back-btn">← Back to Home</a>
+</div>
+
+<!-- TOOL -->
+<main class="tool-container">
+  <h1>BMI Calculator</h1>
+  <p class="tool-desc">
+    Calculate your Body Mass Index (BMI) easily and know your health category.
+  </p>
+
+  <div class="tool-box">
+    <div class="form-group">
+      <label>Height (cm)</label>
+      <input type="number" id="height" placeholder="Enter height in cm">
+    </div>
+
+    <div class="form-group">
+      <label>Weight (kg)</label>
+      <input type="number" id="weight" placeholder="Enter weight in kg">
+    </div>
+
+    <button class="calc-btn" onclick="calculateBMI()">Calculate BMI</button>
+
+    <div class="result" id="result">
+      <h3>Your BMI: <span id="bmiValue"></span></h3>
+      <p id="bmiStatus"></p>
+    </div>
+  </div>
+</main>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer">
+    <div>
+      <h3>UtsavAi-Studio</h3>
+      <p>Simplifying your digital life.</p>
+    </div>
+    <div>
+      <h3>Contact</h3>
+      <p>Email: utsavaistudio1@gmail.com</p>
+      <p>Phone: 7348154462</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+function calculateBMI(){
+  const h = document.getElementById("height").value;
+  const w = document.getElementById("weight").value;
+  const result = document.getElementById("result");
+
+  if(h=="" || w==""){
+    alert("Please enter height and weight");
+    return;
+  }
+
+  const bmi = (w / ((h/100) ** 2)).toFixed(1);
+  let status = "";
+
+  if(bmi < 18.5) status = "Underweight";
+  else if(bmi < 24.9) status = "Normal weight";
+  else if(bmi < 29.9) status = "Overweight";
+  else status = "Obese";
+
+  document.getElementById("bmiValue").innerText = bmi;
+  document.getElementById("bmiStatus").innerText = status;
+  result.style.display = "block";
+}
+</script>
+
+</body>
+</html>

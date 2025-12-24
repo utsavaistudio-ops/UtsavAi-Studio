@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>EMI Calculator – UtsavAi-Studio</title>
+<meta name="description" content="Free EMI Calculator by UtsavAi-Studio. Calculate loan EMI instantly with interest and tenure.">
+<meta name="robots" content="index, follow">
+
+<style>
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:Segoe UI, sans-serif;
+}
+
+:root{
+  --blue:#1e88e5;
+  --blue-dark:#1565c0;
+  --light:#f5f9ff;
+  --dark:#0d1b2a;
+}
+
+body{
+  background:#fff;
+  color:#333;
+}
+
+/* NAVBAR */
+header{
+  background:#fff;
+  box-shadow:0 2px 10px rgba(0,0,0,.06);
+  position:sticky;
+  top:0;
+}
+
+.nav{
+  max-width:1200px;
+  margin:auto;
+  padding:14px 20px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+
+.logo{
+  font-size:22px;
+  font-weight:700;
+  color:var(--blue);
+}
+
+nav a{
+  margin-left:18px;
+  text-decoration:none;
+  color:#444;
+  font-weight:500;
+}
+nav a:hover{color:var(--blue);}
+
+/* BACK BUTTON */
+.back-wrap{
+  max-width:1200px;
+  margin:20px auto;
+  padding:0 20px;
+}
+
+.back-btn{
+  background:var(--blue);
+  color:#fff;
+  padding:8px 18px;
+  border-radius:20px;
+  text-decoration:none;
+  font-size:14px;
+  transition:.3s;
+}
+.back-btn:hover{
+  background:var(--blue-dark);
+  transform:translateX(-4px);
+}
+
+/* TOOL */
+.tool-container{
+  max-width:800px;
+  margin:40px auto;
+  padding:0 20px;
+}
+
+.tool-container h1{
+  margin-bottom:10px;
+  color:var(--dark);
+}
+
+.tool-desc{
+  color:#555;
+  margin-bottom:25px;
+}
+
+.tool-box{
+  background:#fff;
+  padding:25px;
+  border-radius:16px;
+  box-shadow:0 8px 30px rgba(0,0,0,.08);
+}
+
+/* FORM */
+.form-group{
+  margin-bottom:15px;
+}
+
+label{
+  display:block;
+  margin-bottom:6px;
+  font-weight:500;
+}
+
+input{
+  width:100%;
+  padding:12px;
+  border-radius:10px;
+  border:1px solid #ccc;
+  font-size:15px;
+}
+
+/* BUTTON */
+.calc-btn{
+  margin-top:15px;
+  background:var(--blue);
+  color:#fff;
+  border:none;
+  padding:12px;
+  width:100%;
+  border-radius:25px;
+  font-size:16px;
+  cursor:pointer;
+  transition:.3s;
+}
+.calc-btn:hover{
+  background:var(--blue-dark);
+}
+
+/* RESULT */
+.result{
+  margin-top:20px;
+  padding:18px;
+  background:var(--light);
+  border-radius:14px;
+  display:none;
+}
+
+.result p{
+  margin-bottom:6px;
+  font-weight:500;
+}
+
+/* FOOTER */
+footer{
+  background:var(--dark);
+  color:#ccc;
+  margin-top:60px;
+  padding:35px 20px;
+}
+
+.footer{
+  max-width:1200px;
+  margin:auto;
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+  gap:30px;
+}
+
+footer h3{color:#fff;margin-bottom:10px;}
+footer p{font-size:14px;}
+</style>
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+<header>
+  <div class="nav">
+    <div class="logo">UtsavAi-Studio</div>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="index.html">Tools</a>
+      <a href="index.html">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<!-- BACK -->
+<div class="back-wrap">
+  <a href="index.html" class="back-btn">← Back to Home</a>
+</div>
+
+<!-- TOOL -->
+<main class="tool-container">
+  <h1>Loan EMI Calculator</h1>
+  <p class="tool-desc">
+    Calculate your monthly EMI, total interest and total payable amount.
+  </p>
+
+  <div class="tool-box">
+    <div class="form-group">
+      <label>Loan Amount (₹)</label>
+      <input type="number" id="amount" placeholder="e.g. 500000">
+    </div>
+
+    <div class="form-group">
+      <label>Interest Rate (% per year)</label>
+      <input type="number" id="rate" placeholder="e.g. 10">
+    </div>
+
+    <div class="form-group">
+      <label>Loan Tenure (Years)</label>
+      <input type="number" id="tenure" placeholder="e.g. 5">
+    </div>
+
+    <button class="calc-btn" onclick="calculateEMI()">Calculate EMI</button>
+
+    <div class="result" id="result">
+      <p id="emi"></p>
+      <p id="interest"></p>
+      <p id="total"></p>
+    </div>
+  </div>
+</main>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer">
+    <div>
+      <h3>UtsavAi-Studio</h3>
+      <p>Simplifying your digital life.</p>
+    </div>
+    <div>
+      <h3>Contact</h3>
+      <p>Email: utsavaistudio1@gmail.com</p>
+      <p>Phone: 7348154462</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+function calculateEMI(){
+  const P = parseFloat(document.getElementById("amount").value);
+  const R = parseFloat(document.getElementById("rate").value) / 12 / 100;
+  const N = parseFloat(document.getElementById("tenure").value) * 12;
+
+  if(!P || !R || !N){
+    alert("Please fill all fields correctly");
+    return;
+  }
+
+  const EMI = (P * R * Math.pow(1+R, N)) / (Math.pow(1+R, N) - 1);
+  const totalPay = EMI * N;
+  const totalInterest = totalPay - P;
+
+  document.getElementById("emi").innerText =
+    "Monthly EMI: ₹ " + EMI.toFixed(2);
+
+  document.getElementById("interest").innerText =
+    "Total Interest: ₹ " + totalInterest.toFixed(2);
+
+  document.getElementById("total").innerText =
+    "Total Payable Amount: ₹ " + totalPay.toFixed(2);
+
+  document.getElementById("result").style.display = "block";
+}
+</script>
+
+</body>
+</html>
